@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Aktuell projektfördelning</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <script src="/js/RGraph.common.core.js"></script>
+    <script src="/js/RGraph.pie.js"></script>
+    <script src="/js/RGraph.common.effects.js"></script>
+    <script>
+      window.onload = function() {
+        var ajax = function(url, callback) {
+	    if (window.XMLHttpRequest) {
+		var httpRequest = new XMLHttpRequest();        
+		httpRequest.onreadystatechange = callback;
+
+		httpRequest.open('GET', url, true);
+		httpRequest.send();
+	    }
+	};
+	var draw = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+		var obj = JSON.parse(this.response);
+		var pie = new RGraph.Pie('pieChart', obj.data);
+		pie.Set('chart.gutter.top', 90);
+		pie.Set('chart.gutter.left', 55);
+                pie.Set('chart.text.size', 9);
+		pie.Set('chart.colors', ['#556270', '#4ECDC4', '#C7F464', '#FF6B6B', '#C44D58', '#E9DFA8', '#6E889B', '#8E5043', '#20A5A8', '#CFA275']);
+		pie.Set('chart.key', obj.labels);
+		pie.Set('chart.key.background', 'white');
+                pie.Set('chart.key.position.x', 10);
+                pie.Set('chart.key.position.y', 10);
+		pie.Set('chart.strokestyle', 'white');
+		pie.Set('chart.linewidth', 3);
+		pie.Set('chart.exploded', [20,20,10,10,10,10,10,10,10,10,10]);
+		pie.Set('chart.shadow', true);
+		pie.Set('chart.shadow.offsetx', 0);
+		pie.Set('chart.shadow.offsety', 0);
+		pie.Set('chart.shadow.blur', 25);
+		RGraph.Effects.Pie.RoundRobin(pie);
+	    }
+	};
+
+	ajax('/api/reports/time_per_project', draw);
+      };
+    </script>
+    <style>
+      @import url(http://fonts.googleapis.com/css?family=Oswald);
+      body {
+        margin: 2em;
+      }
+      h1 {
+        font-family: 'Oswald', sans-serif;
+      }
+    </style
+  </head>
+<body>
+
+<header>
+  <h1>Aktuell projektfördelning</h1>
+</header>
+
+<content>
+  <canvas id="pieChart" width="450" height="450">No canvas support</canvas>
+</content>
+
+</body>
+</html>

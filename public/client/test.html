@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pie chart test</title>
+    <meta charset="utf-8" />
+    <script src="/js/RGraph.common.core.js"></script>
+    <script src="/js/RGraph.pie.js"></script>
+    <script src="/js/RGraph.common.effects.js"></script>
+    <script type="text/javascript">
+      window.onload = function() {
+        var ajax = function(url, callback) {
+	    if (window.XMLHttpRequest) {
+		var httpRequest = new XMLHttpRequest();        
+		httpRequest.onreadystatechange = callback;
+
+		httpRequest.open('GET', url, true);
+		httpRequest.send();
+	    }
+	};
+	var draw = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+		var obj = JSON.parse(this.response);
+		var pie = new RGraph.Pie('pieChart', obj.data);
+		pie.Set('chart.gutter.left', 45);
+		pie.Set('chart.colors', ['red', 'pink', '#6f6', 'blue', 'yellow']);
+		pie.Set('chart.key', obj.labels);
+		pie.Set('chart.key.background', 'white');
+		pie.Set('chart.strokestyle', 'white');
+		pie.Set('chart.linewidth', 3);
+		pie.Set('chart.exploded', [10,10,10,20,20]);
+		pie.Set('chart.shadow', true);
+		pie.Set('chart.shadow.offsetx', 0);
+		pie.Set('chart.shadow.offsety', 0);
+		pie.Set('chart.shadow.blur', 25);
+		RGraph.Effects.Pie.RoundRobin(pie);
+	    }
+	};
+	
+	ajax('/api/examples/pie_chart', draw);
+      };
+    </script>
+  </head>
+<body>
+
+<header>
+  <h1>Pie chart test</h1>
+</header>
+
+<content>
+  <canvas id="pieChart" width="400" height="400">No canvas support</canvas>
+</content>
+
+</body>
+</html>
