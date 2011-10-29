@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require './harvest_api.rb'
 
 class DataApp < Sinatra::Base
@@ -28,12 +29,12 @@ class DataApp < Sinatra::Base
 
   get "/api/examples/pie_chart/?" do
     Yajl::Encoder.encode({
-      :data => [564,155,499,611,322],
-      :labels => ['Abc', 'Def', 'Ghi', 'Jkl', 'Mno']
+      :labels => ['Christian Lizell (107h)', 'Torbjörn Nilsson (97h)', 'Peter Hellberg (114h)', 'Krister Söderström (96h)', 'Mikael Forsberg (67h)', 'Mats Ygfors (68h)', 'Johan Beronius (146h)', 'Petter Petersson (12h)', 'Alex Robsahm (35h)'],
+      :data => [107.0, 96.5, 114.0, 96.25, 67.0, 68.0, 146.25, 12.0, 35.25]
     })
   end
 
   get "/api/reports/time_per_project/?" do
-    Yajl::Encoder.encode(settings.harvest.time_per_project)
+    Yajl::Encoder.encode(settings.harvest.time_per_project.keys.map {|name| })
   end
 end
