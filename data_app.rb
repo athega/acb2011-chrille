@@ -35,6 +35,6 @@ class DataApp < Sinatra::Base
   end
 
   get "/api/reports/time_per_project/?" do
-    Yajl::Encoder.encode(settings.harvest.time_per_project.keys.map {|name| })
+    Yajl::Encoder.encode(settings.harvest.time_per_project)
   end
 end
