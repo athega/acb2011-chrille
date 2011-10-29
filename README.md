@@ -13,7 +13,7 @@ This is the result of the Athega Code Base 2011 hack day for me, Christian Lizel
 
 ### Environment
 
-If you's like to take the code out for a little spin, you will have to set the following environment variables
+If you'd like to take the code out for a little spin, you will have to set the following environment variables
 
 - HARVEST\_DOMAIN _the subdomain part of .harvestapp.com_
 - HARVEST_USER
